@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rua Builders — Tauranga Builders & Renovations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #FFFFFF;
+    --off-white: #F8F6F2;
+    --sand: #EDE9E1;
+    --stone: #D4CEC4;
+    --navy: #1C2B3A;
+    --navy-mid: #2C3E50;
+    --rust: #C4581A;
+    --rust-light: #E07040;
+    --text: #1C2B3A;
+    --text-soft: #6B7280;
+    --text-mid: #4B5563;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.97);
+    border-bottom: 1px solid var(--sand);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 14px 64px; }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 38px; height: 38px;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .nav-logo-text {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+  }
+  .nav-logo-sub {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    display: block;
+    margin-top: -2px;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-phone {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-phone-num {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-phone-num:hover { color: var(--rust); }
+  .nav-cta-btn {
+    background: var(--rust);
+    color: white;
+    padding: 10px 22px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-left: 16px;
+  }
+  .nav-cta-btn:hover { background: var(--rust-light); }
+
+  /* HERO */
+  .hero {
+    padding-top: 80px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    background: var(--off-white);
+  }
+  .hero-left {
+    padding: 80px 64px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--rust);
+    background: rgba(196,88,26,0.08);
+    padding: 6px 12px;
+    border-radius: 2px;
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--navy);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--rust);
+    font-weight: 300;
+  }
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    max-width: 420px;
+    margin-bottom: 48px;
+    font-weight: 400;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+  .btn-navy {
+    background: var(--navy);
+    color: white;
+    padding: 15px 32px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-navy:hover { background: var(--navy-mid); transform: translateY(-1px); }
+  .btn-rust-outline {
+    border: 2px solid var(--rust);
+    color: var(--rust);
+    padding: 13px 32px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-rust-outline:hover { background: var(--rust); color: white; }
+
+  .hero-guarantees {
+    display: flex;
+    gap: 24px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--stone);
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s forwards;
+  }
+  .guarantee-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-mid);
+  }
+  .guarantee-icon { color: var(--rust); font-size: 1rem; }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-right img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 8s ease;
+  }
+  .hero-right:hover img { transform: scale(1.03); }
+  .hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 32px;
+    background: linear-gradient(to top, rgba(28,43,58,0.9) 0%, transparent 100%);
+  }
+  .hero-project-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 6px;
+  }
+  .hero-project-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 400;
+  }
+
+  /* STRIP */
+  .trust-strip {
+    background: var(--navy);
+    padding: 20px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .trust-item-icon { color: var(--rust-light); font-size: 1.1rem; }
+  .trust-item strong { color: white; }
+
+  /* SERVICES */
+  .services {
+    padding: 120px 80px;
+    background: var(--white);
+  }
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 72px;
+  }
+  .section-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-tag::before {
+    content: '';
+    width: 20px; height: 2px;
+    background: var(--rust);
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 3.5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--navy);
+  }
+  .section-title em { font-style: italic; color: var(--rust); font-weight: 300; }
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-soft);
+    font-weight: 400;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    border: 1px solid var(--sand);
+    padding: 40px 32px;
+    background: var(--off-white);
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:hover {
+    border-color: var(--rust);
+    transform: translateY(-4px);
+  }
+  .service-card-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .service-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .service-card-desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+    margin-bottom: 24px;
+  }
+  .service-card-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--rust);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s;
+  }
+  .service-card:hover .service-card-link { gap: 14px; }
+
+  /* PROJECTS */
+  .projects {
+    padding: 120px 80px;
+    background: var(--off-white);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    grid-template-rows: 320px 280px;
+    gap: 12px;
+    margin-top: 64px;
+  }
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--sand);
+  }
+  .project-card:first-child { grid-row: 1 / 3; }
+  .project-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    display: block;
+  }
+  .project-card:hover img { transform: scale(1.05); }
+  .project-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(28,43,58,0.88) 0%, transparent 100%);
+    transform: translateY(100%);
+    transition: transform 0.4s;
+  }
+  .project-card:hover .project-info { transform: translateY(0); }
+  .project-type {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust-light);
+    margin-bottom: 4px;
+  }
+  .project-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 400;
+  }
+
+  /* WHY US */
+  .why {
+    padding: 120px 80px;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .why-content .section-tag { color: var(--rust-light); }
+  .why-content .section-tag::before { background: var(--rust-light); }
+  .why-content .section-title { color: white; }
+  .why-content .section-title em { color: var(--rust-light); }
+  .why-content p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.6);
+    margin-top: 24px;
+    font-weight: 400;
+  }
+  .why-points {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .why-point {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: border-color 0.3s;
+  }
+  .why-point:hover { border-color: rgba(196,88,26,0.4); }
+  .why-point-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--rust);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .why-point-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .why-point-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 120px 80px;
+    background: var(--white);
+  }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+  .review-card {
+    background: var(--off-white);
+    border: 1px solid var(--sand);
+    padding: 36px 32px;
+    transition: border-color 0.3s;
+  }
+  .review-card:hover { border-color: var(--rust); }
+  .review-stars {
+    color: var(--rust);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  .review-text {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+  .review-author-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .review-author-detail {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    letter-spacing: 0.04em;
+  }
+
+  /* CTA */
+  .cta {
+    padding: 100px 80px;
+    background: var(--rust);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+  .cta-text h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 700;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .cta-text h2 em { font-style: italic; font-weight: 300; }
+  .cta-text p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 400;
+  }
+  .cta-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; text-align: right; }
+  .btn-white {
+    background: white;
+    color: var(--rust);
+    padding: 16px 36px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s;
+    white-space: nowrap;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+  .cta-phone {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+  }
+  .cta-phone a { color: white; text-decoration: none; font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 64px 80px 40px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-logo-wrap .nav-logo-mark { background: var(--rust); }
+  .footer-logo-text { color: white; }
+  .footer-brand-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+    margin-top: 16px;
+    font-weight: 400;
+  }
+  .footer-col-head {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  .footer-links a:hover { color: var(--rust-light); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+  .footer-copy a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-copy a:hover { color: var(--rust-light); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    nav.scrolled { padding: 12px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 72px; }
+    .hero-left { padding: 48px 24px; }
+    .hero-right { height: 280px; }
+    .trust-strip { padding: 20px 24px; gap: 20px; justify-content: flex-start; }
+    .services, .projects, .testimonials, .cta { padding: 80px 24px; }
+    .services-header { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+    .project-card:first-child { grid-row: 1/2; }
+    .why { grid-template-columns: 1fr; padding: 80px 24px; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .cta { grid-template-columns: 1fr; }
+    .cta-actions { align-items: flex-start; }
+    footer { padding: 48px 24px 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">R</div>
+    <div>
+      <span class="nav-logo-text">Rua Builders</span>
+      <span class="nav-logo-sub">Tauranga · Est. 2011</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <div class="nav-phone">
+    <a href="tel:+6471234567" class="nav-phone-num">07 123 4567</a>
+    <a href="#quote" class="nav-cta-btn">Free Quote</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-trust">
+      <div class="trust-badge">✓ Licensed Building Practitioner</div>
+    </div>
+    <h1 class="hero-title">
+      Building <em>better</em><br>
+      homes across<br>
+      Tauranga.
+    </h1>
+    <p class="hero-sub">Quality new builds, renovations, and extensions — done on time, on budget, and built to last. Serving the Bay of Plenty since 2011.</p>
+    <div class="hero-ctas">
+      <a href="#quote" class="btn-navy">Get a Free Quote</a>
+      <a href="#projects" class="btn-rust-outline">View Our Work</a>
+    </div>
+    <div class="hero-guarantees">
+      <div class="guarantee-item"><span class="guarantee-icon">✓</span> Fixed-price contracts</div>
+      <div class="guarantee-item"><span class="guarantee-icon">✓</span> 10-year build guarantee</div>
+      <div class="guarantee-item"><span class="guarantee-icon">✓</span> Fully insured</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Completed build Tauranga" />
+    <div class="hero-overlay">
+      <div class="hero-project-label">Recent Project</div>
+      <div class="hero-project-name">Pāpāmoa Beachside Home — 2024</div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="trust-item"><span class="trust-item-icon">🏆</span><strong>Licensed</strong> Building Practitioner</div>
+  <div class="trust-item"><span class="trust-item-icon">📋</span><strong>200+</strong> Projects Completed</div>
+  <div class="trust-item"><span class="trust-item-icon">⭐</span><strong>4.9★</strong> on Google</div>
+  <div class="trust-item"><span class="trust-item-icon">📍</span>Tauranga · <strong>Bay of Plenty</strong></div>
+  <div class="trust-item"><span class="trust-item-icon">🛡️</span><strong>10-Year</strong> Build Guarantee</div>
+</div>
+
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-tag">What we do</div>
+      <h2 class="section-title">Building services<br>you can <em>trust</em></h2>
+    </div>
+    <p class="section-desc">From new builds to bathroom renovations — we handle every stage of the project, so you never have to chase multiple trades.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <span class="service-card-icon">🏠</span>
+      <div class="service-card-title">New Builds</div>
+      <div class="service-card-desc">Design and build your dream home from the ground up. We manage the entire process — consents, foundation, framing, cladding, interior.</div>
+      <a href="#quote" class="service-card-link">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-card-icon">🔨</span>
+      <div class="service-card-title">Renovations</div>
+      <div class="service-card-desc">Kitchen, bathroom, or whole-house — we transform tired spaces into something you love. Minimal disruption, maximum quality.</div>
+      <a href="#quote" class="service-card-link">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-card-icon">📐</span>
+      <div class="service-card-title">Extensions</div>
+      <div class="service-card-desc">Need more space? We design and build seamless extensions that match your existing home's character and flow.</div>
+      <a href="#quote" class="service-card-link">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-card-icon">🌿</span>
+      <div class="service-card-title">Outdoor Living</div>
+      <div class="service-card-desc">Decks, pergolas, and outdoor entertainment areas built for New Zealand summers. Low-maintenance materials, high-end finish.</div>
+      <a href="#quote" class="service-card-link">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-card-icon">🪟</span>
+      <div class="service-card-title">Weathertightness</div>
+      <div class="service-card-desc">Roof, cladding, and window repairs. We fix moisture issues properly — not just patched. Fully consented work.</div>
+      <a href="#quote" class="service-card-link">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <span class="service-card-icon">🏗️</span>
+      <div class="service-card-title">Commercial</div>
+      <div class="service-card-desc">Light commercial fit-outs, office builds, and retail spaces across the Bay of Plenty. On-time delivery, every time.</div>
+      <a href="#quote" class="service-card-link">Get a quote →</a>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="reveal">
+    <div class="section-tag">Our work</div>
+    <h2 class="section-title">Recent<br><em>projects</em></h2>
+  </div>
+  <div class="projects-grid reveal">
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="New build" />
+      <div class="project-info">
+        <div class="project-type">New Build</div>
+        <div class="project-name">Bethlehem Family Home — 2024</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Kitchen renovation" />
+      <div class="project-info">
+        <div class="project-type">Renovation</div>
+        <div class="project-name">Mount Maunganui Kitchen</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Bathroom" />
+      <div class="project-info">
+        <div class="project-type">Renovation</div>
+        <div class="project-name">Greerton Bathroom</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80" alt="Extension" />
+      <div class="project-info">
+        <div class="project-type">Extension</div>
+        <div class="project-name">Pāpāmoa Living Extension</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?w=600&q=80" alt="Outdoor deck" />
+      <div class="project-info">
+        <div class="project-type">Outdoor</div>
+        <div class="project-name">Welcome Bay Deck & Pergola</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="why-content reveal">
+    <div class="section-tag">Why Rua</div>
+    <h2 class="section-title">We do what<br>we <em>say</em> we will.</h2>
+    <p>No surprises on price. No delays without warning. No handover until you're 100% happy. That's the Rua standard — and it's why 70% of our work comes from repeat clients and referrals.</p>
+  </div>
+  <div class="why-points reveal">
+    <div class="why-point">
+      <div class="why-point-num">01</div>
+      <div>
+        <div class="why-point-title">Fixed-price contracts</div>
+        <div class="why-point-desc">You know exactly what you'll pay before a single nail goes in. No variation surprises unless you change the scope.</div>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="why-point-num">02</div>
+      <div>
+        <div class="why-point-title">We manage everything</div>
+        <div class="why-point-desc">We coordinate all subcontractors — electricians, plumbers, plasterers — so you have one point of contact.</div>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="why-point-num">03</div>
+      <div>
+        <div class="why-point-title">On-time, every time</div>
+        <div class="why-point-desc">We've completed 95% of projects on or ahead of schedule. We know the value of your time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="reviews">
+  <div class="reveal">
+    <div class="section-tag">Reviews</div>
+    <h2 class="section-title">What our clients<br><em>say</em></h2>
+  </div>
+  <div class="reviews-grid reveal">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Rua built our new home in Bethlehem from the ground up. The communication throughout was outstanding — we always knew what was happening. Couldn't be happier."</p>
+      <div class="review-author-name">Craig & Melissa W.</div>
+      <div class="review-author-detail">New Build · Bethlehem, Tauranga</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Our kitchen renovation came in on budget and finished two days early. The quality is incredible — every detail was considered. Already recommending them to everyone."</p>
+      <div class="review-author-name">Tracey N.</div>
+      <div class="review-author-detail">Renovation · Mount Maunganui</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"We've used Rua twice now — first a bathroom reno, then an extension. Both times they were professional, tidy, and did absolutely beautiful work. They're our builders for life."</p>
+      <div class="review-author-name">Dave & Sarah T.</div>
+      <div class="review-author-detail">Extension · Pāpāmoa Beach</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="quote">
+  <div class="cta-text">
+    <h2>Ready to build<br>something <em>great</em>?</h2>
+    <p>Get a free, no-obligation quote. We'll visit your site and give you a clear picture of costs and timeline within 48 hours.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="tel:+6471234567" class="btn-white">Call 07 123 4567</a>
+    <div class="cta-phone">Or email us: <a href="mailto:hello@ruabuilders.co.nz">hello@ruabuilders.co.nz</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo footer-logo-wrap" style="margin-bottom:16px;">
+        <div class="nav-logo-mark" style="background:var(--rust);">R</div>
+        <div>
+          <span class="nav-logo-text footer-logo-text">Rua Builders</span>
+          <span class="nav-logo-sub" style="color:rgba(255,255,255,0.4);">Tauranga · Est. 2011</span>
+        </div>
+      </div>
+      <p class="footer-brand-desc">Licensed building practitioners serving the Bay of Plenty for over 13 years. Quality builds, honest pricing, zero surprises.</p>
+    </div>
+    <div>
+      <div class="footer-col-head">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">New Builds</a></li>
+        <li><a href="#">Renovations</a></li>
+        <li><a href="#">Extensions</a></li>
+        <li><a href="#">Outdoor Living</a></li>
+        <li><a href="#">Commercial</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-head">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Reviews</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-head">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:+6471234567">07 123 4567</a></li>
+        <li><a href="mailto:hello@ruabuilders.co.nz">hello@ruabuilders.co.nz</a></li>
+        <li><a href="#">Tauranga, Bay of Plenty</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Rua Builders Ltd · Licensed Building Practitioner</div>
+    <div class="footer-copy">Website by <a href="https://novowebpages.com">Novo</a></div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 90);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
